@@ -17,14 +17,20 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
+var wg = sync.WaitGroup{}
+
 func main() {
 
+	wg.Add(2)
 	start := time.Now()
-	doSomething()
-	doSomethingElse()
+	go doSomething()
+	go doSomethingElse()
+	wg.Wait()
+
 	fmt.Println("I guess I'm done")
 	elapsed := time.Since(start)
 	fmt.Printf("Processes took %s", elapsed)
@@ -33,9 +39,11 @@ func main() {
 func doSomething() {
 	time.Sleep(time.Millisecond * 1500)
 	fmt.Println("\nI've done something")
+	wg.Done()
 }
 
 func doSomethingElse() {
 	time.Sleep(time.Millisecond * 1500)
 	fmt.Println("I've done something else")
+	wg.Done()
 }
