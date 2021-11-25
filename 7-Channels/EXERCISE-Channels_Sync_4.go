@@ -11,7 +11,6 @@
 //	9) Open SOLUTION-Channels_Sync_4.go for full solution.
 //	10) Share any interesting discoveries.
 
-
 package main
 
 import (
@@ -23,15 +22,15 @@ import (
 func main() {
 	var wg sync.WaitGroup
 
-	for i := 1; i <= 10000; i++ {  // This allows us to create MANY goroutines
-		wg.Add(3)
+	for i := 1; i <= 10000; i++ { // This allows us to create MANY goroutines
+		wg.Add(1)
 		go func(j int) {
 
 			var result = 0
-			goChan := make(chan string)
+			goChan := make(chan int)
 			mainChan := make(chan string)
 			calculateSquare := func() {
-				time.Sleep(time.Second * 3)  // Deliberate time delay
+				time.Sleep(time.Second * 3) // Deliberate time delay
 				result = j * j
 				goChan <- result
 			}
@@ -47,8 +46,9 @@ func main() {
 			wg.Done()
 		}(i)
 	}
-
+	wg.Wait() // Without this, func main() will terminate prematurely.
 }
+
 // HINTS BELOW
 //
 //
