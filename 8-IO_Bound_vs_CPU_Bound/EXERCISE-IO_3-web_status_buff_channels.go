@@ -23,8 +23,6 @@ import (
 	"time"
 )
 
-
-
 func main() {
 	runtime.GOMAXPROCS(1)
 
@@ -44,11 +42,11 @@ func main() {
 	for _, link := range links {
 		go checkLink(link, c)
 	}
-	for len(c) < len(links) { // Program ends when everything is in BUFFERED channel.
+	// for len(c) < len(links) { // Program ends when everything is in BUFFERED channel.
+	// }
+	for range links { // This also works beautifully, using blocking code
+		fmt.Println("channel message:", <-c)
 	}
-	//for range links{  // This also works beautifully, using blocking code
-	//	fmt.Println("channel message:",<-c)
-	//}
 
 	elapsed := time.Since(start)
 	fmt.Printf("Processes took %s", elapsed)

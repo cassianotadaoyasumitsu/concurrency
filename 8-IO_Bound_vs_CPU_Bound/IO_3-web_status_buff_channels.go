@@ -7,8 +7,6 @@ import (
 	"time"
 )
 
-
-
 func main() {
 	runtime.GOMAXPROCS(16)
 
@@ -22,7 +20,6 @@ func main() {
 		"http://techcrunch.com",
 	}
 	c := make(chan string, len(links)) // create buffered channel large enough to hold all links
-
 
 	start := time.Now()
 
