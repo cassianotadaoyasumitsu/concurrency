@@ -9,11 +9,9 @@ import (
 	"time"
 )
 
-
-
 func main() {
 	fmt.Println(runtime.GOMAXPROCS(0))
-	runtime.GOMAXPROCS(16)                                                        // Extra processors don't help w sequential tasks
+	runtime.GOMAXPROCS(16) // Extra processors don't help w sequential tasks
 
 	start := time.Now()
 	counta()
@@ -30,11 +28,10 @@ func main() {
 }
 func counta() {
 	fmt.Println("AAAA is starting  ")
-	for i := 1; i < 10_000_000_000; i ++ {
+	for i := 1; i < 10_000_000_000; i++ {
 	}
 
 	fmt.Println("AAAA is done  ")
-
 
 }
 func countb() {
@@ -44,7 +41,6 @@ func countb() {
 
 	fmt.Println("BBBB is done")
 
-
 }
 func countc() {
 	fmt.Println("CCCC is starting  ")
@@ -52,7 +48,6 @@ func countc() {
 	}
 
 	fmt.Println("CCCC is done    ")
-
 
 }
 func countd() {
@@ -62,7 +57,6 @@ func countd() {
 
 	fmt.Println("DDDD is done     ")
 
-
 }
 func counte() {
 	fmt.Println("EEEE is starting  ")
@@ -70,7 +64,6 @@ func counte() {
 	}
 
 	fmt.Println("EEEE is done   ")
-
 
 }
 func countf() {
@@ -80,7 +73,6 @@ func countf() {
 
 	fmt.Println("FFFF is done     ")
 
-
 }
 func countg() {
 	fmt.Println("GGGG is starting  ")
@@ -89,7 +81,6 @@ func countg() {
 
 	fmt.Println("GGGG is done     ")
 
-
 }
 func counth() {
 	fmt.Println("HHHH is starting  ")
@@ -97,6 +88,5 @@ func counth() {
 	}
 
 	fmt.Println("HHHH is done     ")
-
 
 }

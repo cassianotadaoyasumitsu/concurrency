@@ -12,8 +12,8 @@ var wg = sync.WaitGroup{}
 
 func main() {
 	fmt.Println(runtime.GOMAXPROCS(0))
-	runtime.GOMAXPROCS(16)     //  Extra processors help up to number of goroutines w CPU-bound tasks
-	wg.Add(8)  // create 8 contractor badges for our workers
+	runtime.GOMAXPROCS(16) //  Extra processors help up to number of goroutines w CPU-bound tasks
+	wg.Add(8)              // create 8 contractor badges for our workers
 	startTime := time.Now()
 	go counta() // pass out a badge to each worker
 	go countb()
@@ -24,21 +24,17 @@ func main() {
 	go countg()
 	go counth()
 
-
-
-
-
-	wg.Wait()  // Do not end the program until all badges have been returned, ie all go routines have reported that they are done.
+	wg.Wait() // Do not end the program until all badges have been returned, ie all go routines have reported that they are done.
 	elapsed := time.Since(startTime)
 	fmt.Printf("Processes took %s", elapsed)
 }
 func counta() {
 	fmt.Println("AAAA is starting  ")
-	for I := 1; I < 10_000_000_000; I ++ {
+	for I := 1; I < 10_000_000_000; I++ {
 	}
 
 	fmt.Println("AAAA is done  ")
-	wg.Done()  // Turn in my badge - I'm done
+	wg.Done() // Turn in my badge - I'm done
 
 }
 func countb() {

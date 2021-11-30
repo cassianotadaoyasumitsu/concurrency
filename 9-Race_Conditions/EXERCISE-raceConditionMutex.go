@@ -10,48 +10,53 @@
 //	5) Make other changes and experiment as you like. Take your time and be creative!
 //	6) Share any interesting discoveries.
 
-
 package main
 
 import (
 	"fmt"
 	"sync"
-	)
+)
 
 var (
 	wg sync.WaitGroup
-	mutex = sync.Mutex{}
-	widgetInventory int32= 1000
+	// mutex = sync.Mutex{}
+	widgetInventory int32 = 1000
+	c                     = make(chan int32, 6000)
 )
-
 
 func main() {
 	fmt.Println("Starting inventory count = ", widgetInventory)
 	wg.Add(2)
-	go makeSales()
-	go newPurchases()
+	go makeSales(c)
+	go newPurchases(c)
 	wg.Wait()
+	for len(c) > 0 {
+		widgetInventory += <-c
+	}
 	fmt.Println("Ending inventory count = ", widgetInventory)
 }
 
-func makeSales() {
+func makeSales(c chan int32) {
 	for i := 0; i < 3000; i++ {
-		mutex.Lock()
-		widgetInventory -= 100
-		mutex.Unlock()
+		// mutex.Lock()
+		// widgetInventory -= 100
+		// mutex.Unlock()
+		c <- -100
 	}
 
 	wg.Done()
 }
 
-func newPurchases() {
+func newPurchases(c chan int32) {
 	for i := 0; i < 3000; i++ {
-		mutex.Lock()
-		widgetInventory+= 100
-		mutex.Unlock()
+		// mutex.Lock()
+		// widgetInventory += 100
+		// mutex.Unlock()
+		c <- 100
 	}
 	wg.Done()
 }
+
 //
 // HINTS BELOW
 //
