@@ -7,10 +7,8 @@ import (
 	"time"
 )
 
-
-
 func main() {
-	runtime.GOMAXPROCS(16)  // Extra processors don't help with sequential tasks
+	runtime.GOMAXPROCS(16) // Extra processors don't help with sequential tasks
 	fmt.Println(runtime.NumCPU())
 
 	links := []string{
@@ -22,19 +20,15 @@ func main() {
 		"http://github.com",
 		"http://techcrunch.com",
 		"http://techrepublic.com",
+		"http://usuarioincomum.com",
+		"http://krtradingjapan.com",
 	}
-
 
 	start := time.Now()
 
 	for _, link := range links {
 		checkLink(link)
 	}
-
-
-
-
-
 
 	elapsed := time.Since(start)
 	fmt.Printf("Processes took %s", elapsed)
