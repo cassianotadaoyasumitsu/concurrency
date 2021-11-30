@@ -10,8 +10,8 @@ import (
 var (
 	wg sync.WaitGroup
 	//mutex = sync.Mutex{}
-	widgetInventory int32 = 1000 //Package-level variable will avoid all the pointers
-	c = make(chan int32, 6000) // Creates a buffered channel to hold all our transactions
+	widgetInventory int32 = 1000                   //Package-level variable will avoid all the pointers
+	c                     = make(chan int32, 6000) // Creates a buffered channel to hold all our transactions
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	go makeSales(c)
 	go newPurchases(c)
 	// Put -100 transaction into the channel
-	wg.Wait() // Don't proceed until all transactions are loaded into channel
+	wg.Wait()        // Don't proceed until all transactions are loaded into channel
 	for len(c) > 0 { // Keep reading until all transactions are processed and channel is empty
 		widgetInventory += <-c // Read each transaction and update widgetInventory
 		//fmt.Println(widgetInventory) // Print if you want to see each transaction
@@ -46,7 +46,7 @@ func newPurchases(c chan int32) { // 300000 widgets purchased
 		//widgetInventory+= 100
 		////fmt.Println(widgetInventory)
 		//mutex.Unlock()
-		c <- 100  // Put +100 purchase transaction into the channel
+		c <- 100 // Put +100 purchase transaction into the channel
 	}
 	wg.Done()
 }
